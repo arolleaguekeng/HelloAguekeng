@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<HelloAguekeng.WebApp.Models.UserModel>
+@{
+    ViewBag.Title = "User list";
+}
+<h1>@ViewBag.Title</h1>
+<a href="@Url.Action("Create", "User")"><button type="button" class="btn btn-outline-success" style="font-size:larger;"><i class="fa-solid fa-plus"></i>Create</button></a>
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Picture</th>
+                <th scope="col">UserName</th>
+                <th scope="col">FullName</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var user in Model)
+                {
+                    <tr>
+                        <td><img src="@user.Picture" style="width:45px;"></td>
+                        <td>@user.UserName</td>
+                        <td>@user.FullName</td>
+                        <td>@user.Profile</td>
+                        <td>@user.CreateAT</td>
+                        <td>@user.Status</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "User", new { id = user.Id }, null)"><i class="fa-regular fa-info"></i></a> |
+                            <a href="@Url.Action("Details", "User", new { id = user.Id }, null)"><i class="fa-solid fa-circle-info"></i></a> |
+                            <a href="@Url.Action("Delete", "User", new { id = user.Id }, null)" onclick="return confirm('Do you really want to detete @HttpUtility.JavaScriptStringEncode(user.FullName) ?')"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" style="text-align : center ; font-style : italic">Data not found ! </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

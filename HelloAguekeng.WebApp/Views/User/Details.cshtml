@@ -1,0 +1,57 @@
+﻿@model HelloAguekeng.WebApp.Models.UserModel
+@{
+    ViewBag.Title = "User Details";
+}
+@using (Html.BeginForm("Details", "User", FormMethod.Get))
+{
+    <h1>@ViewBag.Title</h1>
+    <div>
+        @Html.ValidationSummary()
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-2">
+                @Html.LabelFor(x => x.FullName)<br />
+                <strong>@Html.DisplayFor(x => x.FullName)</strong>
+            </div>
+            <div class="mb-2">
+                @Html.LabelFor(x => x.UserName)<br />
+                <strong>@Html.DisplayFor(x => x.UserName)</strong>
+            </div>
+            <div class="mb-2">
+                @Html.LabelFor(x => x.ProfileSelectedValue) <br />
+                <strong>@Html.DisplayFor(x => x.ProfileSelectedValue)</strong>
+            </div>
+            <div class="mb-2">
+                @Html.LabelFor(x => x.Status) <br />
+                <strong>@Html.DisplayFor(x => x.StatusName)</strong>
+            </div>
+            <div class="mb-2">
+                @Html.LabelFor(x => x.CreateAT) <br />
+                <strong>@Html.DisplayFor(x => x.CreateAT)</strong>
+            </div>
+            <div>
+                <a href="@Url.Action("Edit", "User", new { id = Model.Id})" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("Delete ", "User", new { id = Model.Id})" class="btn btn-danger" onclick="return confirm('Do you really want to detete @HttpUtility.JavaScriptStringEncode(Model.FullName) ?')">Delete</a>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-2" style="text-align:center">
+                @if (!string.IsNullOrEmpty(Model.Picture))
+                {
+                    <img id="@Html.IdFor(x => x.Picture)" src="@Model.Picture" class="img-thumbnail img-fluid" />
+
+                }
+                else
+                {
+                    <img id="@Html.IdFor(x => x.Picture)" src="~/Images/default_user_picture.png" class="img-thumbnail img-fluid" />
+
+                }
+            </div>
+
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "User")"></a>
+}
+
